@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Unreleased
 ### Fixed
 - Fixed `full_moon::ast::CompoundAssignment`/`CompoundOp` failing to compile when the `luau` or `cfxlua` feature was enabled without `serde` (an unconditional `use serde::...` import in `compound.rs` wasn't gated behind `#[cfg(feature = "serde")]`).
+### Added
+- Added `replace_X` methods to `VisitorMut` for every AST node type (e.g. `replace_local_assignment`, `replace_expression`). Returning `Some(replacement)` substitutes the node and skips visiting it entirely (no `visit_X`/`visit_X_end`, no recursion into the original or the replacement), which lets a visitor swap in a node without traversing into its children.
 
 ## [3.0.0] - YYYY-MM-DD
 ### Changed
